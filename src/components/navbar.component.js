@@ -1,20 +1,27 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import '../App.css';
+import { Link } from 'react-router-dom'
+import React from 'react';
 
-export default class Navbar extends Component {
-
-  render() {
+function Navbar() {
+    const navStyle = {
+        color: 'white'
+    };
     return (
-      <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-        <Link to="/" className="navbar-brand">Feedback Analysis System</Link>
-        <div className="collpase navbar-collapse">
-        <ul className="navbar-nav mr-auto">
-          <li className="navbar-item">
-          <Link to="/" className="nav-link">Conquerors</Link>
-          </li>
-        </ul>
-        </div>
-      </nav>
+        <nav>
+            <h3>Feedback Analysis System</h3>
+            <ul className="nav-links">
+                <Link style={navStyle} to="/">
+                    <li>Home</li>
+                </Link>
+
+                <Link style={navStyle} to="/dashboard">
+                    <li>Dashboard</li>
+                </Link>
+
+            </ul>
+        </nav>
+
     );
-  }
 }
+
+export default Navbar;

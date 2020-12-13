@@ -27,3 +27,5 @@ app.use('/sentiment', sentimentRouter)
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`)
 })
+
+// const db = db.db("itemsDB")

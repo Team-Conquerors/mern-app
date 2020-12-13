@@ -12,10 +12,8 @@ function App() {
             <div className = "container" >
                 <Navbar/>
                     <br/> <br/>
-                {/*<Route path = "/" exact component = { Navbar }/>*/}
-                <Route path="/" component={InsertItem} />
+                <Route path="/" exact component={InsertItem} />
                 <Route path="/dashboard" component={SentimentOutput} />
-                {/*<Route path="/dashboard" component={CreateUser} />*/}
             </div>
         </Router >
     );
