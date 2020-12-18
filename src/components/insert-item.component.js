@@ -9,45 +9,47 @@ import { Link } from 'react-router-dom'
 import ItemNameOutput from './sentiment-data.component'
 
 class InsertItem extends React.Component{
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
+    //
+    //     this.onChangeItemName = this.onChangeItemName.bind(this);
+    //     this.onSubmit = this.onSubmit.bind(this);
 
-        this.onChangeItemName = this.onChangeItemName.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-
-        this.state = {
+        state = {
             itemName: '',
-            // data: []
+            // item: []
         }
-        console.log(this.state.itemName)
-    }
+    // }
 
-    onChangeItemName(e) {
-        e.preventDefault()
+    onChangeItemName= (e) =>{
+        // e.preventDefault()
         console.log("target value:",e.target.value)
         this.setState({
-            // itemName: ''
-            [e.target.itemName]: e.target.value
-            // itemName: e.target.value
+            // [e.target.itemName]: e.target.value
+            itemName: e.target.value
 
         })
     }
 
-    onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault();
+
+        this.props.onSubmit(this.state)
+        console.log(this.state)
 
         const data = this.state
         console.log("Final data is : ",data)
-
-    }
-    componentDidMount() {
-        const {itemName} = this.state
-        console.log(itemName)
         // this.setState({
-        //     itemName: 'car'
+        //     itemName: ''
         // })
-
+        this.props.history.push('/dashboard');
     }
+    // componentDidMount() {
+    //     this.setState({
+    //         itemName: ''
+    //     })
+    //
+    // }
 
     // async componentDidMount(props) {
     //
@@ -57,7 +59,7 @@ class InsertItem extends React.Component{
     //         .then(response => {
     //             // filtering
     //             const outputArrayObject = response.data
-    //             const filteredArray = outputArrayObject.find(nameOfItem => nameOfItem.item == this.state.itemName)
+    //             const filteredArray = outputArrayObject.find(nameOfItem => nameOfItem.item == this.props.itemName)
     //             console.log(filteredArray)
     //
     //             this.setState({
@@ -72,20 +74,21 @@ class InsertItem extends React.Component{
     // }
 
     render() {
-        // const {itemName} = this.state.itemName
-        // console.log(itemName)
+        const itemName = this.state.itemName
+        console.log(itemName)
         return (
             <div>
                 <h3>Search new Item</h3>
-                <form onSubmit={this.onSubmit}>
+                <form >
                     <div className="form-group">
                         <label>Item name: </label>
                         <input  type="text"
                                 required
+                                placeholder="Enter item Name"
                                 name='itemName'
                                 className="form-control"
-                                // value={itemName}
-                                onChange={this.onChangeItemName}
+                                defaultValue={this.state.itemName}
+                                onChange={e => this.onChangeItemName(e)}
                         />
                     </div>
                     <div className="form-group">
@@ -93,18 +96,17 @@ class InsertItem extends React.Component{
                         <Link to="/dashboard">
                             <input
                                 type="submit"
-                                value="Create User"
+                                value="Search"
                                 className="btn btn-primary"
                                 // onSubmit={this.onChangeUsername}
-                                // onClick={routeChange}
+                                onClick={e => this.onSubmit(e)}
                             >
                             </input>
                         </Link>
                     </div>
-                    {/*<p>Item name is: {itemName}</p>*/}
-                    <ItemNameOutput itemname={this.state.itemName}/>
+                    <p>Item name is: {this.state.itemName}</p>
+                    <ItemNameOutput name={this.state.itemName}/>
                 </form>
-                {/*<itemNameInput name={item.itemName}/>*/}
 
             </div>
         )

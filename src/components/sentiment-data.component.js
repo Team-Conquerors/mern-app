@@ -2,28 +2,40 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-
-const Items = props => (
-
-
-    <tr>
-        <td>{props.item._id}</td>
-        <td>{props.item.item}</td>
-        <td>{props.item.positive}</td>
-        <td>{props.item.negative}</td>
-
-    </tr>
-
-)
+import InsertItem from "./insert-item.component";
+//
+// const Items = props => (
+//
+//
+//     <tr>
+//         <td>{props.item._id}</td>
+//         <td>{props.item.item}</td>
+//         <td>{props.item.positive}</td>
+//         <td>{props.item.negative}</td>
+//
+//     </tr>
+//
+// )
 
 // class name : this.props
 export default class SentimentOutput extends Component {
     constructor(props) {
         super(props);
-        console.log(this.props.itemname)
+        // console.log(this.props.itemname)
 
-        this.state = {items: []};
+        this.state = {
+            name: {},
+            // items: []
+        };
     }
+
+    onSubmit = name => {
+        this.setState({ name })
+        // console.log('App comp got ' , name)
+    }
+
+
+
 
     componentDidMount(props) {
         console.log(props)
@@ -34,7 +46,7 @@ export default class SentimentOutput extends Component {
             .then(response => {
                 // filtering
                 const outputArrayObject = response.data
-                const filteredArray = outputArrayObject.find(nameOfItem => nameOfItem.item == 'tv')
+                const filteredArray = outputArrayObject.find(nameOfItem => nameOfItem.item === 'tv')
                 console.log(filteredArray)
 
                 this.setState({
@@ -53,30 +65,32 @@ export default class SentimentOutput extends Component {
             })
     }
 
-    sentimentDataList() {
-        return this.state.items.map(currentItems => {
-            return <Items item={currentItems} key={currentItems._id} />;
-        })
-    }
+    // sentimentDataList() {
+    //     return this.state.items.map(currentItems => {
+    //         return <Items item={currentItems} key={currentItems._id} />;
+    //     })
+    // }
 
     render() {
         return (
             <div>
                 <h3>Analysed Feedback Report</h3>
-                <table className="table">
-                    <thead className="thead-light">
-                    <tr>
-                        <th>ID</th>
-                        <th>Item</th>
-                        <th>Positive</th>
-                        <th>Negative</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    { this.sentimentDataList() }
-                    </tbody>
-                </table>
-                <h1>Item name: {this.props.itemname}</h1>
+                {/*<table className="table">*/}
+                {/*    <thead className="thead-light">*/}
+                {/*    <tr>*/}
+                {/*        <th>ID</th>*/}
+                {/*        <th>Item</th>*/}
+                {/*        <th>Positive</th>*/}
+                {/*        <th>Negative</th>*/}
+                {/*    </tr>*/}
+                {/*    </thead>*/}
+                {/*    <tbody>*/}
+                {/*    { this.sentimentDataList() }*/}
+                {/*    </tbody>*/}
+                {/*</table>*/}
+                <h1>Item name: {this.props.name}</h1>
+                {/*<InsertItem onSubmit={name => this.onSubmit(name)}/>*/}
+                {/*<p>{JSON.stringify(this.state.name, null, 2)}</p>*/}
             </div>
         )
     }
