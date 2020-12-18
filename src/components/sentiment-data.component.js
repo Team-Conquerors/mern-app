@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+
 const Items = props => (
 
 
@@ -12,16 +13,20 @@ const Items = props => (
         <td>{props.item.negative}</td>
 
     </tr>
+
 )
 
+// class name : this.props
 export default class SentimentOutput extends Component {
     constructor(props) {
         super(props);
+        console.log(this.props.itemname)
 
         this.state = {items: []};
     }
 
-    componentDidMount() {
+    componentDidMount(props) {
+        console.log(props)
 
         // url which is node output the data
         axios.get('http://localhost:5000/sentiment')
@@ -29,15 +34,12 @@ export default class SentimentOutput extends Component {
             .then(response => {
                 // filtering
                 const outputArrayObject = response.data
-                const filteredArray = outputArrayObject.find(nameOfItem => nameOfItem.item === 'phone')
+                const filteredArray = outputArrayObject.find(nameOfItem => nameOfItem.item == 'tv')
                 console.log(filteredArray)
 
                 this.setState({
                     items: response.data
                 })
-
-
-
             })
             // .then(function (response){
             //     return response.json()
@@ -74,6 +76,7 @@ export default class SentimentOutput extends Component {
                     { this.sentimentDataList() }
                     </tbody>
                 </table>
+                <h1>Item name: {this.props.itemname}</h1>
             </div>
         )
     }

@@ -7,13 +7,14 @@ import SentimentOutput from "./components/sentiment-data.component";
 import InsertItem from "./components/insert-item.component"
 
 function App() {
+    // console.log(props.itemName)
     return (
         <Router >
             <div className = "container" >
                 <Navbar/>
                     <br/> <br/>
                 <Route path="/" exact component={InsertItem} />
-                <Route path="/dashboard" component={SentimentOutput} />
+                <Route path="/dashboard" component={SentimentOutput}/>
             </div>
         </Router >
     );
