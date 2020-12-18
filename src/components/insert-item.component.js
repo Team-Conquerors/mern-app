@@ -1,0 +1,114 @@
+import '../App.css';
+import React from 'react';
+import Navbar from "./navbar.component";
+import axios from "axios";
+import ReactDOM from "react-dom";
+
+import { Link } from 'react-router-dom'
+
+import ItemNameOutput from './sentiment-data.component'
+
+class InsertItem extends React.Component{
+    constructor(props) {
+        super(props);
+
+        this.onChangeItemName = this.onChangeItemName.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+
+        this.state = {
+            itemName: '',
+            // data: []
+        }
+        console.log(this.state.itemName)
+    }
+
+    onChangeItemName(e) {
+        e.preventDefault()
+        console.log("target value:",e.target.value)
+        this.setState({
+            // itemName: ''
+            [e.target.itemName]: e.target.value
+            // itemName: e.target.value
+
+        })
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+
+        const data = this.state
+        console.log("Final data is : ",data)
+
+    }
+    componentDidMount() {
+        const {itemName} = this.state
+        console.log(itemName)
+        // this.setState({
+        //     itemName: 'car'
+        // })
+
+    }
+
+    // async componentDidMount(props) {
+    //
+    //     // url which is node output the data
+    //     axios.get('http://localhost:5000/sentiment')
+    //
+    //         .then(response => {
+    //             // filtering
+    //             const outputArrayObject = response.data
+    //             const filteredArray = outputArrayObject.find(nameOfItem => nameOfItem.item == this.state.itemName)
+    //             console.log(filteredArray)
+    //
+    //             this.setState({
+    //                 items: response.data
+    //             })
+    //         })
+    //         .then(json => this.setState({ data: json }))
+    //
+    //         .catch((error) => {
+    //             console.log(error);
+    //         })
+    // }
+
+    render() {
+        // const {itemName} = this.state.itemName
+        // console.log(itemName)
+        return (
+            <div>
+                <h3>Search new Item</h3>
+                <form onSubmit={this.onSubmit}>
+                    <div className="form-group">
+                        <label>Item name: </label>
+                        <input  type="text"
+                                required
+                                name='itemName'
+                                className="form-control"
+                                // value={itemName}
+                                onChange={this.onChangeItemName}
+                        />
+                    </div>
+                    <div className="form-group">
+
+                        <Link to="/dashboard">
+                            <input
+                                type="submit"
+                                value="Create User"
+                                className="btn btn-primary"
+                                // onSubmit={this.onChangeUsername}
+                                // onClick={routeChange}
+                            >
+                            </input>
+                        </Link>
+                    </div>
+                    {/*<p>Item name is: {itemName}</p>*/}
+                    <ItemNameOutput itemname={this.state.itemName}/>
+                </form>
+                {/*<itemNameInput name={item.itemName}/>*/}
+
+            </div>
+        )
+    }
+}
+export default InsertItem;
+
