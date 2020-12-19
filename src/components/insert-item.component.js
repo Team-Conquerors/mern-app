@@ -81,7 +81,7 @@ class InsertItem extends React.Component{
 
     runSentimentDataComponent(props) {
         const itemNameCheck = this.state.itemName
-        if(itemNameCheck === 'tv' || itemNameCheck === 'phone'){
+        if(itemNameCheck === 'tv' || itemNameCheck === 'phone' || itemNameCheck === 'laptop'){
             return <ItemNameOutput name={this.state.itemName}/>
         } else {
             // return <p>Enter 'tv' or 'phone'</p>
@@ -93,12 +93,13 @@ class InsertItem extends React.Component{
         console.log(itemName)
         return (
             <div>
-                <h3>Search new Item</h3>
+                <h3>Search Items</h3>
                 <form onSubmit={this.onChangeItemName}>
                     <div className="form-group">
                         <label>Items available: tv, phone </label>
                         <input  type="text"
                                 required
+                                // autocomplete="off"
                                 placeholder="Enter item Name"
                                 name='itemName'
                                 className="form-control"
