@@ -1,29 +1,30 @@
 import '../App.css';
 import React from 'react';
-import Navbar from "./navbar.component";
-import axios from "axios";
-import ReactDOM from "react-dom";
+// import Navbar from "./navbar.component";
+// import axios from "axios";
+// import ReactDOM from "react-dom";
 
 import { Link } from 'react-router-dom'
 
 import ItemNameOutput from './sentiment-data.component'
 
 class InsertItem extends React.Component{
-    // constructor(props) {
-    //     super(props);
-    //
-    //     this.onChangeItemName = this.onChangeItemName.bind(this);
-    //     this.onSubmit = this.onSubmit.bind(this);
+    constructor(props) {
+        super(props);
 
-        state = {
+        this.onChangeItemName = this.onChangeItemName.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+
+        this.state = {
             itemName: '',
             // item: []
         }
-    // }
+    }
 
-    onChangeItemName= (e) =>{
-        // e.preventDefault()
+    onChangeItemName(e){
+        e.preventDefault()
         console.log("target value:",e.target.value)
+
         this.setState({
             // [e.target.itemName]: e.target.value
             itemName: e.target.value
@@ -34,22 +35,27 @@ class InsertItem extends React.Component{
     onSubmit = (e) => {
         e.preventDefault();
 
-        this.props.onSubmit(this.state)
-        console.log(this.state)
+        // this.props.onSubmit(this.state)
+        console.log('on submit : ',this.state)
 
         const data = this.state
         console.log("Final data is : ",data)
         // this.setState({
         //     itemName: ''
         // })
-        this.props.history.push('/dashboard');
+
+        // this.props.history.push('/dashboard');
+
+        return (<p>Item name is: {this.state.itemName}</p>)
     }
-    // componentDidMount() {
-    //     this.setState({
-    //         itemName: ''
-    //     })
-    //
-    // }
+
+    componentDidMount() {
+        this.setState({
+            itemName: ''
+        })
+        return ( <ItemNameOutput name={this.state.itemName}/>)
+
+    }
 
     // async componentDidMount(props) {
     //
@@ -73,22 +79,31 @@ class InsertItem extends React.Component{
     //         })
     // }
 
+    runSentimentDataComponent(props) {
+        const itemNameCheck = this.state.itemName
+        if(itemNameCheck === 'tv' || itemNameCheck === 'phone'){
+            return <ItemNameOutput name={this.state.itemName}/>
+        } else {
+            // return <p>Enter 'tv' or 'phone'</p>
+        }
+    }
+
     render() {
         const itemName = this.state.itemName
         console.log(itemName)
         return (
             <div>
                 <h3>Search new Item</h3>
-                <form >
+                <form onSubmit={this.onChangeItemName}>
                     <div className="form-group">
-                        <label>Item name: </label>
+                        <label>Items available: tv, phone </label>
                         <input  type="text"
                                 required
                                 placeholder="Enter item Name"
                                 name='itemName'
                                 className="form-control"
                                 defaultValue={this.state.itemName}
-                                onChange={e => this.onChangeItemName(e)}
+                                onChange={this.onChangeItemName}
                         />
                     </div>
                     <div className="form-group">
@@ -104,8 +119,13 @@ class InsertItem extends React.Component{
                             </input>
                         </Link>
                     </div>
-                    <p>Item name is: {this.state.itemName}</p>
-                    <ItemNameOutput name={this.state.itemName}/>
+                    {/*<p>Item name is: {this.state.itemName}</p>*/}
+
+                    {/*<ItemNameOutput name={this.state.itemName}/>*/}
+                    { this.runSentimentDataComponent() }
+
+                    {/*{ this.componentDidMount() }*/}
+                    {/*{this.onSubmit()}*/}
                 </form>
 
             </div>
