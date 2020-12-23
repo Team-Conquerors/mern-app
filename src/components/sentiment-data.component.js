@@ -191,7 +191,13 @@ export default class SentimentOutput extends Component {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false,
-                type: "pie"
+                type: "pie",
+            },
+            credits: {
+                enabled: false
+            },
+            exporting: {
+                enabled: false
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -269,6 +275,10 @@ export default class SentimentOutput extends Component {
                 <div className="row" >
                     <HighchartsReact className="col-md-6" highcharts={Highcharts} options={batteryOptions}/>
                     <HighchartsReact className="col-md-6" highcharts={Highcharts} options={displayOptions}/>
+                </div>
+                <hr/>
+                <div className="row">
+                    <h1>Nothing</h1>
                 </div>
 
 
